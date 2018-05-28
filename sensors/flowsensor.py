@@ -39,4 +39,15 @@ class flowmeter(sensor):
 
     def reset_cumulative():
         self.count = 0
-        
+
+if __name__ == "__main__":
+    s = flowmeter('pene')
+    s.setup
+    while True:
+        try:
+            time.sleep(1)
+            s.get_data()
+        except KeyboardInterrupt:
+            print '\ncaught keyboard interrupt!, bye'
+            GPIO.cleanup()
+            sys.exit()
