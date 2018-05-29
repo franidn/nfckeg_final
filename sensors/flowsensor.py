@@ -1,4 +1,4 @@
-from .main import sensor
+from main import sensor
 import RPi.GPIO as GPIO
 import time, sys
 
@@ -7,7 +7,7 @@ class flowmeter(sensor):
     def __init__(self, name):
         super(flowmeter, self).__init__(name)
 
-    def setup():
+    def setup(self):
         #Defenim pin BCM17 per conectar el sensor de flux
         FLOW_SENSOR_PIN = 17
         #Diem a la raspberry que ens referirem als pins com BCM
@@ -21,28 +21,31 @@ class flowmeter(sensor):
         self.count_no_cumulative = 0
 
     def countPulse(self, channel):
-        self.count = self.count + 1
+        self.count_cumulative = self.count_cumulative + 1
         self.count_no_cumulative = self.count_no_cumulative + 1
 
     def get_data(self):
-        self.count_no_cumulative = 0
-        self.actual_liters = self.count_no_cumulative/400
-        print self.actual_liters
-
-
+        if self.count_no_cumulative == 0:
+            while True:
+                time.sleep(1)
+                self.actual_liters = self.count_no_cumulative/float(400)
+                print self.actual_liters
+        else:
+            self.count_no_cumulative = 0
 
 
     def get_cumulative(self):
-        self.acumulate_liters = self.count/400
+        self.acumulate_liters = self.count_cumulative/float(400)
         print self.acumulate_liters
 
 
     def reset_cumulative():
-        self.count = 0
+        self.acumulate_liters = 0
+        self.count_cumulative = 0
 
 if __name__ == "__main__":
     s = flowmeter('pene')
-    s.setup
+    s.setup()
     while True:
         try:
             time.sleep(1)

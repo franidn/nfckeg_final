@@ -6,5 +6,5 @@ class sensor(object):
 
     """ Busquem que estigui definit al init"""
     def __init__(self, name):
-        super(Sensor, self).__init__()
+        super(sensor, self).__init__()
         self.name = name
