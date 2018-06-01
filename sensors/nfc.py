@@ -19,8 +19,12 @@ class rfid(sensor):
             (status,TagType) = self.nfcobject.MFRC522_Request(self.nfcobject.PICC_REQIDL)
             if status == self.nfcobject.MI_OK:
                 self.estat = "Card detected"
-                print self.estat
-                return self.estat
+
+            else:
+                self.estat = "No card"
+
+            print self.estat
+            return self.estat
 
     def get_uid(self):
             (status,self.uid) = self.nfcobject.MFRC522_Anticoll()

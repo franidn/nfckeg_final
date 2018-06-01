@@ -19,17 +19,17 @@ class flowmeter(sensor):
         #Inicialitzem una varialble global per contar voltes del sensor de flux
         self.count_cumulative = 0
         self.count_no_cumulative = 0
+        self.Relay = "Relay off"
 
     def countPulse(self, channel):
-        self.count_cumulative = self.count_cumulative + 1
-        self.count_no_cumulative = self.count_no_cumulative + 1
+        if self.Relay == "Relay on":
+            self.count_cumulative = self.count_cumulative + 1
+            self.count_no_cumulative = self.count_no_cumulative + 1
 
     def get_data(self):
         if self.count_no_cumulative == 0:
-            while True:
-                time.sleep(1)
-                self.actual_liters = self.count_no_cumulative/float(400)
-                print self.actual_liters
+            self.actual_liters = self.count_no_cumulative/float(400)
+            print self.actual_liters
         else:
             self.count_no_cumulative = 0
 
