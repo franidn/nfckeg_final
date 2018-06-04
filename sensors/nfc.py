@@ -14,22 +14,22 @@ class rfid(sensor):
     def setup(self):
         self.nfcobject = MFRC522.MFRC522()
         self.estat = "a"
+        self.dectect_card = "no oks"
     def detect_target(self):
 
             (status,TagType) = self.nfcobject.MFRC522_Request(self.nfcobject.PICC_REQIDL)
             if status == self.nfcobject.MI_OK:
-                self.estat = "Card detected"
-
-            else:
-                self.estat = "No card"
-
-            print self.estat
-            return self.estat
+                self.dectect_card = "OK"
+                print "Card detected"
 
     def get_uid(self):
             (status,self.uid) = self.nfcobject.MFRC522_Anticoll()
             if status == self.nfcobject.MI_OK:
-                 print "Card read UID: %s,%s,%s,%s" % (self.uid[0], self.uid[1], self.uid[2], self.uid[3])
+                print "Card read UID: %s,%s,%s,%s" % (self.uid[0], self.uid[1], self.uid[2], self.uid[3])
+                self.estat = "Card detected"
+
+            elif status == self.nfcobject.MI_ERR:
+                self.estat = "No card"
 
 if __name__ == "__main__":
     nfc = rfid("lector")

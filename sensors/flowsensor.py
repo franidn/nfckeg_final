@@ -19,10 +19,8 @@ class flowmeter(sensor):
         #Inicialitzem una varialble global per contar voltes del sensor de flux
         self.count_cumulative = 0
         self.count_no_cumulative = 0
-        self.Relay = "Relay off"
 
     def countPulse(self, channel):
-        if self.Relay == "Relay on":
             self.count_cumulative = self.count_cumulative + 1
             self.count_no_cumulative = self.count_no_cumulative + 1
 
@@ -39,6 +37,7 @@ class flowmeter(sensor):
         print self.acumulate_liters
 
 
+
     def reset_cumulative():
         self.acumulate_liters = 0
         self.count_cumulative = 0
@@ -49,7 +48,7 @@ if __name__ == "__main__":
     while True:
         try:
             time.sleep(1)
-            s.get_data()
+            s.get_cumulative()
         except KeyboardInterrupt:
             print '\ncaught keyboard interrupt!, bye'
             GPIO.cleanup()
