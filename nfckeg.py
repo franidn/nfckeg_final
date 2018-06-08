@@ -19,6 +19,7 @@ class nfckeg(object):
         self.uid = None
         self.sensor_flux.setup()
         self.lector_nfc.setup()
+        self.notificacio.setup()
 
     def main_loop(self):
         while True:
@@ -29,7 +30,9 @@ class nfckeg(object):
                 Relay on
                 """
                 self.sensor_flux.Relay = "Relay on"
+                self.notificacio.message = self.sensor_flux.Relay
                 print self.sensor_flux.Relay
+                self.notificacio.sendMessage()
                 while self.sensor_flux.Relay == "Relay on":
 
                     time.sleep(3)
@@ -40,10 +43,14 @@ class nfckeg(object):
                         Relay off
                         """
                         self.sensor_flux.Relay = "Relay off"
+                        self.notificacio.message = self.sensor_flux.Relay
                         self.lector_nfc.dectect_card = "NO OK"
+                        self.notificacio.sendMessage()
                         print self.sensor_flux.Relay
                         self.sensor_flux.get_cumulative()
-                        self.notificacio.setup("self.sensor_flux.acumulate_liters")
+                        self.notificacio.message = self.sensor_flux.acumulate_liters
+                        self.notificacio.sendMessage()
+
 
 if __name__ == "__main__":
     n = nfckeg()
