@@ -1,7 +1,7 @@
 """
 produced by: FAC0
 """
-
+import paho.mqtt.subscribe as subscribe
 import sensors
 import notifications
 import time, sys
@@ -48,7 +48,14 @@ class nfckeg(object):
                         self.notificacio.sendMessage()
                         print self.sensor_flux.Relay
                         self.sensor_flux.get_cumulative()
+                        esp_datos = subscribe.simple(topics = 'sensor/flux', hostname="192.168.1.38")
+                        print(esp_datos.topic)
+                        print(esp_datos.payload)
                         self.notificacio.message = self.sensor_flux.acumulate_liters
+                        self.notificacio.sendMessage()
+                        self.notificacio.message = esp_datos.topic
+                        self.notificacio.sendMessage()
+                        self.notificacio.message = esp_datos.payload
                         self.notificacio.sendMessage()
 
 
