@@ -5,14 +5,13 @@ class telegram(notification):
     """ Sensor de flux """
     def __init__(self):
         super(telegram, self).__init__()
-
+# Dades per connectar-se al bot
     def setup(self):
         self.token = '584119079:AAGGf4g3iDFLlhbfp-Ii9e9SnDKOTRtU-_A'
         self.chatId = -217126603
-        self.message = "eeee"
-        
+        self.message = " "
+# Funcio que envia missatge al bot definit anteriorment
     def sendMessage(self):
-
         bot = telepot.Bot(self.token)
         bot.sendMessage(self.chatId, self.message)
 

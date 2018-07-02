@@ -1,6 +1,3 @@
-"""
-produced by: FAC0
-"""
 import paho.mqtt.subscribe as subscribe
 import sensors
 import notifications

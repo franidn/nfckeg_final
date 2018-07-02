@@ -31,19 +31,16 @@ class flowmeter(sensor):
         else:
             self.count_no_cumulative = 0
 
-
     def get_cumulative(self):
         self.acumulate_liters = self.count_cumulative/float(400)
         print self.acumulate_liters
-
-
 
     def reset_cumulative():
         self.acumulate_liters = 0
         self.count_cumulative = 0
 
 if __name__ == "__main__":
-    s = flowmeter('pene')
+    s = flowmeter('prova')
     s.setup()
     while True:
         try:
